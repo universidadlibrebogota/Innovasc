@@ -1,0 +1,243 @@
+/* === Layout === */
+.container {
+    display: flex;
+    min-height: 100vh;
+}
+
+.sidebar {
+    width: 250px;
+    background-color: #f5f5f5;
+    color: #333;
+    padding: 20px 0;
+    position: fixed;
+    height: 100vh;
+    border-right: 1px solid #ddd;
+}
+
+.logo {
+    text-align: center;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #ddd;
+}
+
+.logo img {
+    width: 50px;
+    margin-bottom: 10px;
+}
+
+.logo span {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+.sidebar nav ul {
+    list-style: none;
+}
+
+.sidebar nav ul li {
+    margin: 10px 0;
+}
+
+.sidebar nav ul li a {
+    color: #666;
+    text-decoration: none;
+    padding: 10px 20px;
+    display: block;
+    transition: background 0.3s;
+    border-left: 3px solid transparent;
+}
+
+.sidebar nav ul li a:hover {
+    background-color: #e0e0e0;
+    color: #333;
+    border-left: 3px solid #e67e22;
+}
+
+.main-content {
+    flex: 1;
+    margin-left: 250px;
+    padding: 20px;
+    background-color: #f9f9f9;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.header h1 {
+    font-size: 2em;
+    color: #2c3e50;
+}
+
+.user-info {
+    font-size: 0.9em;
+    color: #666;
+}
+
+.no-products {
+    text-align: center;
+    padding: 40px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+}
+
+.no-products p {
+    font-size: 1.2em;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.form-container {
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    margin-top: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+    color: #333;
+}
+
+.form-group input[type="text"],
+.form-group input[type="number"],
+.form-group select {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+    width: 100%;
+    max-width: 300px;
+}
+
+.form-group button {
+    padding: 8px 16px;
+    background-color: #e67e22;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+.form-group button:hover {
+    background-color: #d35400;
+}
+
+/* Tabla */
+.products-list table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.products-list th,
+.products-list td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.products-list th {
+    background-color: #f5f5f5;
+    font-weight: 600;
+}
+
+.products-list tr:hover {
+    background-color: #f9f9f9;
+}
+
+/* Botones de tabla */
+.btn-edit, .btn-delete {
+    padding: 4px 8px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.btn-edit {
+    background-color: #3498db;
+    color: white;
+}
+
+.btn-delete {
+    background-color: #e74c3c;
+    color: white;
+}
+
+/* Sidebar Derecho */
+.sidebar-right {
+    width: 300px;
+    background: white;
+    border-left: 1px solid #ddd;
+    padding: 20px;
+    height: calc(100vh - 80px);
+    position: fixed;
+    top: 80px;
+    right: 0;
+    overflow-y: auto;
+}
+
+.profile-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.profile-header img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin: 0 auto;
+}
+
+.profile-header h3 {
+    margin: 10px 0;
+    font-size: 1.2em;
+}
+
+.profile-info p {
+    margin: 8px 0;
+    color: #666;
+}
+
+.profile-actions {
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
+}
+
+.btn-primary {
+    background-color: #e67e22;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btn-secondary {
+    background-color: #ccc;
+    color: #333;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+}
