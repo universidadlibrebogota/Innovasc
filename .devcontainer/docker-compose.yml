@@ -7,7 +7,6 @@ services:
     volumes:
       - ..:/workspaces/${localWorkspaceFolderBasename}
     command: sleep infinity
-    user: node
     environment:
       DB_URL: mysql+pymysql://root:@db/inovaasc?charset=utf8mb4
       CORS_ORIGIN_REGEX: https://.*\.githubpreview\.dev
