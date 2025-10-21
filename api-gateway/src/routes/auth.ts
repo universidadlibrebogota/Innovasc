@@ -1,41 +1,39 @@
 import { Router } from "express";
-import axios from "axios";
 import jwt from "jsonwebtoken";
+import fetch from "node-fetch";
 
 const router = Router();
-const backend = process.env.BACKEND_URL || "http://127.0.0.1:8000";
-const jwtSecret = process.env.JWT_SECRET || "dev-secret";
+const { JWT_SECRET, BACKEND_URL, COOKIE_SECURE="true", NODE_ENV } = process.env;
 
 router.post("/login", async (req, res) => {
-  try {
-    const { data } = await axios.post(`${backend}/auth/login`, req.body);
-    const token = jwt.sign(data, jwtSecret, { expiresIn: "8h" });
-    const isProd = process.env.NODE_ENV === "production";
-    res.cookie("token", token, {
-      httpOnly: true,
-      sameSite: isProd ? "none" : "lax",
-      secure: isProd ? true : false
-    });
-    res.json(data);
-  } catch (e: any) {
-    res.status(e?.response?.status || 500).json({ error: e?.response?.data?.detail || "Error" });
-  }
-});
+  const r = await fetch(`${BACKEND_URL}/auth/login`, {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify(req.body)
+  });
+  if (!r.ok) return res.status(r.status).json(await r.json());
 
-router.get("/me", (req, res) => {
-  const token = (req as any).cookies?.token || (req.headers?.cookie || "").split("token=")[1];
-  if (!token) return res.status(401).json({ error: "No autenticado" });
-  try {
-    const payload = jwt.verify(token, jwtSecret);
-    return res.json(payload);
-  } catch {
-    return res.status(401).json({ error: "Token inválido" });
-  }
-});
+  const { access_token, refresh_token } = await r.json();
+  // Validar/filtrar claims si necesitas, pero no re-firmes; usa el que emite FastAPI
 
-router.post("/logout", (_req, res) => {
-  res.clearCookie("token");
-  res.json({ ok: true });
+  const isProd = NODE_ENV === "production";
+  const secure = COOKIE_SECURE === "true" || isProd;
+
+  res.cookie("token", access_token, {
+    httpOnly: true,
+    secure,
+    sameSite: "strict",   // si no hay necesidad de terceros
+    maxAge: 1000 * 60 * 15,
+    path: "/"
+  });
+  res.cookie("rtk", refresh_token, {
+    httpOnly: true,
+    secure,
+    sameSite: "strict",
+    maxAge: 1000 * 60 * 60 * 24 * 7,
+    path: "/api/auth/refresh"
+  });
+  return res.json({ ok: true });
 });
 
 export default router;
